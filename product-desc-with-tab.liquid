@@ -1,0 +1,143 @@
+<ul class="tabs">
+  <li><a href="#tab-1">Overview</a></li>
+  <li><a href="#tab-2">Spec</a></li>
+  <li><a href="#tab-3">Docs</a></li>
+</ul>
+<div id="tab-1">
+  {{ product.description }}
+</div>
+<div id="tab-2">
+  {% include 'product-spec' %}
+</div>
+<div id="tab-3">
+  {% include 'product-docs' %}
+</div>
+
+<script>
+  $(document).ready(function() {
+    $('ul.tabs').each(function(){
+      var active, content, links = $(this).find('a');
+      active = links.first().addClass('active');
+      content = $(active.attr('href'));
+      links.not(':first').each(function () {
+        $($(this).attr('href')).hide();
+      });
+      $(this).find('a').click(function(e){
+        active.removeClass('active');
+        content.hide();
+        active = $(this);
+        content = $($(this).attr('href'));
+        active.addClass('active');
+        content.show();
+        return false;
+      });
+    });
+  });
+  $(document).ready(function() {
+    $(".tabs-menu a").click(function(event) {
+      event.preventDefault();
+      $(this).parent().addClass("current");
+      $(this).parent().siblings().removeClass("current");
+      var tab = $(this).attr("href");
+      $(".tab-content").not(tab).css("display", "none");
+      $(tab).fadeIn();
+    });
+  });
+</script>
+
+
+<style>
+  @media screen and (max-width: 479px){
+    .product-description {
+      padding-top: 50px;
+      width: 75%!important;
+    }
+  }
+  @media screen and (min-width: 480px){
+    .product-description {
+      padding-top: 30px;
+      width: 100%!important;
+    }
+  }
+
+  table.table.table-striped {
+    width: 100%;
+  }
+  ul.tabs {
+    border-bottom: 1px solid #DDDDDD;
+    display: block;
+    margin: 0 0 20px;
+    padding: 0;
+  }
+  ul.tabs li {
+    display: block;
+    float: left;
+    height: 30px;
+    margin-bottom: 0;
+    padding: 0;
+    width: auto;
+  }
+  ul.tabs li a {
+    -moz-border-bottom-colors: none;
+    -moz-border-image: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background: none repeat scroll 0 0 #F5F5F5;
+    border-color: #DDDDDD !important;
+    border-style: solid;
+    border-width: 1px 1px 0 1px;
+    display: block;
+    font-size: 13px;
+    height: 29px;
+    line-height: 30px;
+    margin: 0;
+    padding: 0 20px;
+    text-decoration: none;
+    width: auto;
+    color: #303030;
+    border-bottom:none !important;
+  }
+  ul.tabs li a.active {
+    background: none repeat scroll 0 0 #FFFFFF;
+    border-left-width: 1px;
+    border-top-left-radius: 2px;
+    border-top-right-radius: 2px;
+    color: #111111;
+    height: 30px;
+    margin: 0 0 0 -1px;
+    padding-top: 4px;
+    position: relative;
+    top: -4px;
+  }
+  ul.tabs li:first-child a.active {
+    margin-left: 0;
+  }
+  ul.tabs li:first-child a {
+    border-top-left-radius: 2px;
+    border-width: 1px 1px 0;
+  }
+  ul.tabs li:last-child a {
+    border-top-right-radius: 2px;
+  }
+  ul.tabs:before, ul.tabs:after {
+    content: " ";
+    display: block;
+    height: 0;
+    overflow: hidden;
+    visibility: hidden;
+    width: 0;
+  }
+  ul.tabs:after {
+    clear: both;
+  }
+  .table>thead>tr>th, .table>tbody>tr>th, .table>tfoot>tr>th, .table>thead>tr>td, .table>tbody>tr>td, .table>tfoot>tr>td {
+    padding: 8px;
+    line-height: 1.42857143;
+    vertical-align: top;
+    border-top: 1px solid #ddd;display: inline-grid;
+  }
+  .table>tbody>tr.info>td, .table>tfoot>tr.info>td, .table>thead>tr.info>th, .table>tbody>tr.info>th, .table>tfoot>tr.info>th {
+    background-color: #d9edf7;
+  }
+</style>
